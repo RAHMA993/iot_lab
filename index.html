@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Registration Form</title>
+</head>
+<body>
+
+    <h1>Registration Form</h1>
+
+    <form>
+
+        <label for="fname">First name:* </label>
+        <input type="text" name="fname" id="fname" placeholder="Enter your first name">
+
+        <label for="lname">Last name:* </label>
+        <input type="text" name="lname" id="lname" placeholder="Enter your last name">
+
+        <label for="email">Email address:*</label>
+        <input type="email" name="email" id="email" placeholder="Enter your email">
+
+        <label for="password">Password:*</label>
+        <input type="password" name="password" id="password" placeholder="Enter your password">
+
+        <label for="birthday">Birthday: </label>
+        <input type="date" id="birthday" name="birthday">
+
+        <div class="gender">
+            <p>Gender Identity: </p>
+            <div>
+                <input type="radio" name="gender" id="male" value="Male">
+                <label for="male">Male</label>
+            </div>
+            <div>
+                <input type="radio" name="gender" id="female" value="Female">
+                <label for="female">Female</label>
+            </div>
+        </div>
+
+        <label for="description">A short description about myself:</label>
+        <br>
+        <textarea name="description" id="description" cols="35" rows="3"></textarea>
+
+        <label for="favlang">Favourite Language: </label>
+        <select name="favourite language" id="favlang">
+            <option value="JavaScript">JavaScript</option>
+            <option value="Java">Java</option>
+            <option value="C">C</option>
+        </select> 
+
+        <div class="checkbox">
+            <input type="checkbox" name="ischecked" id="checked" checked>
+            <label class="checked_label" for="checked">Yes, I would like to recieve periodic email updates.</label>
+        </div>
+
+        <input class="button" type="button" value="Submitted">
+
+        <p>* Indicates a required field</p>
+
+    </form>
+    <h1>Submitted Data</h1>
+    <ul id="dataList"></ul>
+
+    <script>
+        const host = location.origin.replace(/^http/, "ws");
+        const ws = new WebSocket(host);
+
+        const button = document.querySelector(".button");
+        button.addEventListener("click", () => {
+            const fname = document.getElementById("fname").value;
+            const lname = document.getElementById("lname").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const birthday = document.getElementById("birthday").value;
+            const gender = document.querySelector('input[name="gender"]:checked')?.value;
+            const description = document.getElementById("description").value;
+            const favLang = document.getElementById("favlang").value;
+            const isChecked = document.getElementById("checked").checked;
+
+            const formData = { fname, lname, email, password, birthday, gender, description, favLang, isChecked };
+            ws.send(JSON.stringify(formData));
+
+            const dataList = document.getElementById("dataList");
+            const dataItem = document.createElement("li");
+
+            dataItem.innerHTML = `
+                <strong>First Name:</strong> ${fname} <br>
+                <strong>Last Name:</strong> ${lname} <br>
+                <strong>Email:</strong> ${email} <br>
+                <strong>Password:</strong> ${password} <br>
+                <strong>Birthday:</strong> ${birthday} <br>
+                <strong>Gender:</strong> ${gender} <br>
+                <strong>Description:</strong> ${description} <br>
+                <strong>Favorite Language:</strong> ${favLang} <br>
+                <strong>Receive Email Updates:</strong> ${isChecked ? "Yes" : "No"}
+            `;
+
+            dataList.appendChild(dataItem);
+        });
+
+        ws.onopen = () => {
+        console.log("Connected to server");
+        };
+
+        ws.onmessage = (ev) => {
+    const message = JSON.parse(ev.data);
+    if (message.type === "update") {
+        const dataList = document.getElementById("dataList");
+        dataList.innerHTML = "";  // Clear existing data in the list
+        message.clientData.forEach(item => {  // Ensure you're using the correct property (clientData)
+            const listItem = document.createElement("li");
+            listItem.textContent = `Name: ${item.fname} ${item.lname}, Email: ${item.email}`;
+            dataList.appendChild(listItem);
+        });
+    }
+};
+
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

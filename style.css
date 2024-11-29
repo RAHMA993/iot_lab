@@ -1,0 +1,153 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #4facfe, #00f2fe, #a18cd1, #fbc2eb);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
+}
+
+/* Gradient Animation */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* page header */
+h1 {
+    text-align: center;
+    color: #fff;
+    margin-top: 20px;
+}
+
+/* Form Container */
+form {
+    background-color: #fff;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Form Labels */
+form label,
+form p {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+}
+/* Form Gender Labels */
+.gender label{
+    display: inline;
+}
+
+/* Form Inputs */
+form #fname,
+form #lname,
+form #email,
+form #password,
+form #birthday,
+form textarea,
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Placeholder Text */
+::placeholder {
+    color: #aaa;
+}
+
+/* Form Gender Section */
+form .gender{
+    margin-bottom: 20px;
+}
+
+form p {
+    margin-bottom: 10px;
+}
+
+/* Form Checkbox Section */
+form .checked_label{
+    display: inline;
+}
+
+form .checkbox{
+    margin-bottom: 20px;
+}
+
+/* form Select Section */
+form select {
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+/* Submit Button */
+form .button {
+    background-color: #43c6ac;
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+form .button:hover {
+    background-color: #e63946;
+}
+
+/* Required Field Notice */
+form p:last-child {
+    font-size: 12px;
+    color: #999;
+}
+
+/* Style for the data list */
+ul#dataList {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for each list item */
+ul#dataList li {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Style for the last list item (no border) */
+ul#dataList li:last-child {
+    border-bottom: none;
+}
+
+/* Highlight labels within the list */
+ul#dataList li strong {
+    color: #43c6ac;
+    font-weight: bold;
+}
